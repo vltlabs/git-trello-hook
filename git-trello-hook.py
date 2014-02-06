@@ -66,10 +66,7 @@ def handle_payload():
 
                 TRELLO_CARDS.update(
                     card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_in_progress'])
-
-    return "done"
-
-    if cards_in_commit:
+                
         from_cards = TRELLO_LIST.get_card(
             TRELLO_CONFIG['list_id_in_progress'])
 
