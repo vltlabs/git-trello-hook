@@ -10,6 +10,7 @@ TRELLO_CONFIG = {
     'api_key': '41397e66e001c782d111a951c60644fe',
     'oauth_token': 'd21facf0145d2361f3a2a81243ecd993ee94b3a585da70fdee8d782cbf2e8427',
     'board_id': '4i8dVRWd',
+    'list_id_to_do': '52f1cd2524067dc47edb6c99',
     'list_id_in_progress': '52f1cd2524067dc47edb6c9a',
     'list_id_done': '52f1cd2524067dc47edb6c9b',
 }
@@ -56,6 +57,8 @@ def handle_payload():
     if cards_in_commit:
         from_cards = TRELLO_LIST.get_card(
             TRELLO_CONFIG['list_id_in_progress'])
+        from_todos = TRELLO_LIST.get_card(
+            TRELLO_CONFIG['list_id_to_do'])
 
         for card in from_cards:
             print(card)
@@ -65,6 +68,15 @@ def handle_payload():
 
                 TRELLO_CARDS.update(
                     card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_done'])
+
+        for card in from_todos:
+            print(card)
+            if str(card['idShort']) in cards_in_commit:
+                desc_with_commit = '{0}\n{1}'.format(
+                    card['desc'], cards_url_dict[str(card['idShort'])])
+
+                TRELLO_CARDS.update(
+                    card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_in_progress'])
 
     return "done"
 
