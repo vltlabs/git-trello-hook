@@ -45,16 +45,16 @@ def handle_payload():
     cards_url_dict = {}
     card_pattern = '(\[)(card #)([0-9]+)(\])'
 
-    for commit in commits:
-        results = re.findall(
-            card_pattern, commit['message'], flags=re.IGNORECASE)
-        for result in results:
-            cards_in_commit.append(result[2])
-            cards_url_dict[result[2]] = commit['url']
+        for commit in commits:
+            results = re.findall(
+                card_pattern, commit['message'], flags=re.IGNORECASE)
+            for result in results:
+                cards_in_commit.append(result[2])
+                cards_url_dict[result[2]] = commit['url']
 
-    print(cards_in_commit)
-    print(cards_url_dict)
-    if cards_in_commit:
+        print(cards_in_commit)
+        print(cards_url_dict)
+        if cards_in_commit:
             from_cards = TRELLO_LIST.get_card(
                 TRELLO_CONFIG['list_id_in_progress'])
 
