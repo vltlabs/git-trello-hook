@@ -3,9 +3,13 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
 
 #Instructions
 
-    $pip -r requirements.txt
+```
+$pip -r requirements.txt
+```
 
-    # Update these placeholders in git-trello-hook.py
+###### Update these placeholders in git-trello-hook.py
+    
+```
     TRELLO_CONFIG = {
         'api_key': 'TRELLO_API_KEY',
         'oauth_token': 'TRELLO_OAUTH_TOKEN_FOR_BOARD',
@@ -18,15 +22,19 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
         'host': '0.0.0.0',
         'port': 7343
     }
+```
 
-    # Open your github/gitlab repo settings, add an webhook URL according to your configs.
-    e.g. For heroku deployment, add url https://git-trello-test.herokuapp.com/webhook
-    e.g. For self hosting, add url https://your-ip-address:port/webhook
+###### Open your github/gitlab repo settings, add an webhook URL according to your configs.
 
-    $git commit -a -m "Fix [card #1]"
-    $git push
+> e.g. For heroku deployment, add url https://[your-own-url].herokuapp.com/webhook  
+> e.g. For self hosting, add url https://your-ip-address:port/webhook
 
-    # git-trello will move Card #1(View Card, Card index is on the right bottom corner) from `list_id_in_progress` to `list_id_done` and append with your git commit url.
+```
+$ git commit -a -m "Fix [card #1]"
+$ git push
+```
+
+**git-trello will move Card #1(View Card, Card index is on the right bottom corner) from `list_id_in_progress` to `list_id_done` and append with your git commit url.**
 
 ###`API_KEY`
 https://trello.com/1/appKey/generate
