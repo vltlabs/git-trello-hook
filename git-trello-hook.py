@@ -42,7 +42,7 @@ def handle_payload():
     commits = json_payload['commits']
     cards_in_commit = []
     cards_url_dict = {}
-    card_pattern = '(card #)([0-9]+)'
+    card_pattern = '(\[)(card #)([0-9]+)(\])'
 
     for commit in commits:
         results = re.findall(
