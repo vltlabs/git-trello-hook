@@ -55,19 +55,18 @@ def handle_payload():
     print(cards_in_commit)
     print(cards_url_dict)
     if cards_in_commit:
-        from_cards = TRELLO_LIST.get_card(
-            TRELLO_CONFIG['list_id_to_do'])
+        # from_cards = TRELLO_LIST.get_card(
+        #     TRELLO_CONFIG['list_id_to_do'])
 
-        for card in from_cards:
-            print(card)
-            if str(card['idShort']) in cards_in_commit:
-                desc_with_commit = '{0}\n{1}'.format(
-                    card['desc'], cards_url_dict[str(card['idShort'])])
+        # for card in from_cards:
+        #     print(card)
+        #     if str(card['idShort']) in cards_in_commit:
+        #         desc_with_commit = '{0}\n{1}'.format(
+        #             card['desc'], cards_url_dict[str(card['idShort'])])
 
-                TRELLO_CARDS.update(
-                    card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_in_progress'])
-    else:
-        
+        #         TRELLO_CARDS.update(
+        #             card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_in_progress'])
+
         from_cards = TRELLO_LIST.get_card(
             TRELLO_CONFIG['list_id_in_progress'])
 
