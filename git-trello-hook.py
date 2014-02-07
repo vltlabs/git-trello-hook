@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 from gevent import monkey;monkey.patch_all()
-from bottle import route, request,run, default_app
-from trello import Cards, Lists
+from bottle import route, request, run, default_app, response
+from trello import Cards, Lists, Boards
 import re
 import json
+from json import dumps
 
 TRELLO_CONFIG = {
     'api_key': '41397e66e001c782d111a951c60644fe',
@@ -21,6 +22,7 @@ WEBHOOK_CONFIG = {
 
 TRELLO_LIST = Lists(TRELLO_CONFIG['api_key'], TRELLO_CONFIG['oauth_token'])
 TRELLO_CARDS = Cards(TRELLO_CONFIG['api_key'], TRELLO_CONFIG['oauth_token'])
+TRELLO_BOARD = Boards(TRELLO_CONFIG['api_key'], TRELLO_CONFIG['oauth_token'])
 
 
 @route("/")
@@ -67,6 +69,19 @@ def handle_payload():
                     card['id'], desc=desc_with_commit, idList=TRELLO_CONFIG['list_id_done'])
 
     return "done"
+
+@route("/gethook", method='GET')
+def handle_get():
+    from_cards = TRELLO_LIST.get_card(
+        TRELLO_CONFIG['list_id_in_progress'])
+
+    from_lists = TRELLO_BOARD.get_list(
+        TRELLO_CONFIG['board_id'])
+
+    response.content_type = 'application/json'
+    print(from_cards)
+
+    return dumps(from_lists)
 
 if __name__ == '__main__':
     run(host=WEBHOOK_CONFIG['host'],
